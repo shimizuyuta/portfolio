@@ -1,7 +1,8 @@
 import axios from "axios";
 export default function ({ store}) {
 
-axios.defaults.baseURL = 'http://localhost:5000/'
+  axios.defaults.baseURL = 'http://localhost:5000/'
+  axios.defaults.baseURL = 'http://localhost:5000/'
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
   console.log('conf',config)
