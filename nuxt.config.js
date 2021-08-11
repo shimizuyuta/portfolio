@@ -27,6 +27,7 @@ module.exports = {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/axios.config.js',
+    // '@/plugins/auth.js',
 
   ],
 
@@ -40,22 +41,59 @@ module.exports = {
 
     "~~/api/",
   ],
+  // router: {
+  //   middleware: ['auth']
+  // },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     // https://go.nuxtjs.dev/axios
+    '@nuxtjs/auth',
+    '@nuxtjs/axios'
   ],
+  // axios:{
+  //   baseURL:'http://localhost:5000/'
+  // },
+  auth: {
+    // plugins:[
+    //   '@/plugins/axios.config.js'
+    // ],
+    cookie: false, 
+    redirect:{
+      login:'/login',
+      logout:'/login',
+      callback:false,
+      home:false
+    },
+    strategies: {
+      local: {
+        token:{
+           property:'token',
+           type: "Bearer",
+           maxAge:60 
+        },
+
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: { url: '/api/auth/user', method: 'get', }
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+      }
+    }
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   // axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-    build: {
-      babel: {
-        babelrc: false,
-        compact: false
-      }
-    }
-  }
+  // build: {
+  //   build: {
+  //     babel: {
+  //       babelrc: false,
+  //       compact: false
+  //     }
+  //   }
+  // }
 }

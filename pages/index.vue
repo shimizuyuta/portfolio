@@ -1,42 +1,32 @@
 <template>
-  <div>
-<p>aas</p>
-<button @click="aaa()">ss2</button>
-<button @click="getData()">ssss1</button>
-<p>{{hello}}</p>
-<p>{{word}}</p>
-
-  </div>
+ <div>
+   <p>hello</p>
+   {{user.email}}
+   <p>{{$store.state}}</p>
+   <p>{{$auth.user}}</p>
+      <h2>ログイン状態:{{ $auth.loggedIn }}</h2>
+      <p>{{this.$auth.$state}}</p>
+   <button @click="logout">logout</button>
+ </div>
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
-  data:function(){
-     return {
-       hello:'',
-       word:'',
-     }
-  },
-  methods:{
-    getData() {
-        axios.get('/api/about')
-        .then(res => {
-          //リクエスト成功時
-          console.log('resssssssss',res)
-          this.word = res.data
-        })
-        .catch(err => {
-          //リクエスト失敗時
-        })
-      },
-    async aaa(){
-      console.log('aaaa')
-       const data = await axios.get('api/about')
-       console.log(data)
-       this.hello = data.data
+  name: 'AuthorityIcon',
+  middleware({ store, redirect }) {
+    if(!store.$auth.loggedIn) {
+      redirect('/login');
     }
+  },
+  computed: {
+    user() {
+      return this.$auth.user;
+    }
+  },
+  methods: {
+    logout() {
+      this.$auth.logout();
+    },
   }
 }
 </script>

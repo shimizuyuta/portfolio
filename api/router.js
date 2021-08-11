@@ -1,31 +1,59 @@
-// var express = require('express')
-// var router = express.Router()
 
-// router.get('/',async(req,res)=>{
-//     console.log('aaa4444444444')
-//     res.send('hallo')
-// });
-
-// router.get('/test',(req,res)=>{
-//     res.send('aaaaaaaaaaaaaa')
-// })
-
-// module.exports = router;
 var express = require('express')
 var router = express.Router()
+const AuthController = require('./controllers/AuthController');
+const JwtValidator = require('./validators/JwtValidator');
+
+
+
+
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
   console.log('Time:aaaaaaaaaaaaaaaaa ', Date.now())
   next()
 })
-// define the home page route
-router.get('/', function (req, res) {
-  res.send('Birds home page')
-})
-// define the about route
-router.get('/about', function (req, res) {
-  res.send('About birds')
+
+router.post('/auth/login',AuthController.login)
+router.post('/sign',AuthController.sign)
+router.get('/auth/user',AuthController.getUser)
+router.post('/auth/logout',AuthController.logout)
+
+
+// router.post('/auth/login',async(req,res)=>{
+//   try{
+//     const { email,password} = req.body;
+//     console.log('email',email)
+//     const user = {name:'aa',password:password,email:email} 
+//     if (!user) {
+//       const error = new Error("user with this email not found!");
+//       error.statusCode = 401;
+//       throw error;
+//     }
+//     console.log('user',user)
+
+//   }catch(e){
+//     console.log('e',e)
+//   }
+// })
+
+// router.get('/auth/user',(req,res)=>{
+//   const headers = req.headers
+//   console.log(headers)
+//   const bearToken = req.headers['authorization']
+//   console.log(bearToken,'adddddddd')
+//   res.send(200)
+// })
+
+router.post('/auth/register',async(req,res)=>{
+  try{
+    console.log(req,'aaaaaaaaa')
+    const user = ({name:'aa',email:req.body.email})
+    console.log(user)
+    return user 
+  }catch(e){
+    console.log('e',e)
+  }
 })
 
 module.exports = router
