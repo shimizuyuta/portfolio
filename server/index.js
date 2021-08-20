@@ -5,7 +5,7 @@ const app = express();
 const router = express.Router();
 const { Nuxt, Builder } = require('nuxt')
 
-const config = require('../nuxt.config')
+const config = require('../nuxt.config');
 
 config.dev = process.env.NODE_ENV !== 'production'
 
@@ -18,12 +18,13 @@ async function start(){
     await nuxt.ready()
   }
   app.use(nuxt.render)
-  
- 
+  const db = require('../models/index')
+  global.db = db;
   const port = process.env.PORT || 5000;
   
   app.listen(port,()=>{
           console.log(`server started on ${port}`)
+          console.log('process.env.NODE_ENV',process.env.NODE_ENV)
   })
   
   
