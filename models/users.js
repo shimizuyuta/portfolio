@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static fullName(){
-      return this.firstName + this.lasName
+      return this.firstName + this.lastName
     }
 
     static associate(models) {
@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       
     }
   };
-  students.init({
+  users.init({
     firstName: DataTypes.STRING,
-    lasName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
     password: DataTypes.UUID,
     age: DataTypes.INTEGER,
     starts: DataTypes.INTEGER,
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     sequelize,
-    modelName: 'students',
+    modelName: 'users',
   });
-  return students;
+  return users;
 };
