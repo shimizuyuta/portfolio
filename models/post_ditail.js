@@ -11,10 +11,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      post_ditail.belongsTo(models.posts)
     }
   };
   post_ditail.init({
-    post_id: DataTypes.INTEGER
+    post_id: DataTypes.INTEGER,
+    post_date: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    prefecture_id: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    city: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    building: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    zip_code: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
   }, {
     sequelize,
     modelName: 'post_ditail',
