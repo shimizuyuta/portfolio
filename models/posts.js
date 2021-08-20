@@ -11,10 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      posts.belongsTo(models.users,{
+        as:'student'
+      }),
+      posts.belongsTo(models.users,{
+        as:'elder'
+      })
     }
   };
   posts.init({
-    elder_id: DataTypes.INTEGER
+    post_title:DataTypes.STRING,
+    post_description:DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'posts',
